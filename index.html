@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdGuard: Блокировщик рекламы — превью анимации</title>
+<meta name="description" content="Превью зацикленной анимации AdGuard AdBlocker: видео, скриншоты и ссылки.">
+<style>
+  html, body { margin: 0; background: #000; }
+  body {
+    min-height: 100vh; display: flex; flex-direction: column;
+    color: #d7ecd9; font: 13px/1.5 ui-monospace, Menlo, monospace;
+  }
+
+  /* === header === */
+  #top {
+    display: flex; align-items: center; gap: 14px; padding: 12px 18px;
+    background: #101315; border-bottom: 1px solid #1c2a24;
+  }
+  #top img { width: 40px; height: 40px; border-radius: 9px; display: block; }
+  #top h1 { font: 600 15px/1.2 ui-monospace, Menlo, monospace; margin: 0; }
+  #top .sub { opacity: .55; font-size: 12px; }
+
+  /* === stage === */
+  #stage { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; padding: 14px; }
+  #video {
+    max-width: 100%; max-height: calc(100vh - 200px); width: auto; height: auto;
+    display: block; border-radius: 6px; background: #000; cursor: pointer;
+  }
+
+  /* === control bar === */
+  #bar {
+    display: flex; gap: 14px; align-items: center; padding: 0 18px; height: 64px;
+    background: #101315; border-top: 1px solid #1c2a24;
+  }
+  button {
+    background: #1d2b24; color: #d7ecd9; border: 1px solid #2e4438; border-radius: 8px;
+    padding: 8px 16px; font: 600 13px ui-monospace, Menlo, monospace; cursor: pointer;
+  }
+  button:hover { background: #27402f; }
+  #time { min-width: 110px; text-align: right; opacity: .8; }
+  input[type=range] { flex: 1; accent-color: #68bc71; }
+  .hint { opacity: .45; }
+
+  /* === sections below the fold === */
+  section { padding: 34px 18px; }
+  section h2 {
+    font: 600 13px/1 ui-monospace, Menlo, monospace; text-transform: uppercase;
+    letter-spacing: .12em; color: #68bc71; margin: 0 0 18px;
+  }
+  #shots {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  }
+  #shots figure { margin: 0; }
+  #shots img {
+    height: 380px; width: auto; display: block; border-radius: 14px;
+    border: 1px solid #1c2a24;
+  }
+  #shots figcaption { text-align: center; opacity: .5; font-size: 11px; margin-top: 8px; }
+
+  #cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  #cta a {
+    background: #1d2b24; color: #d7ecd9; border: 1px solid #2e4438; border-radius: 8px;
+    padding: 12px 22px; font: 600 13px ui-monospace, Menlo, monospace;
+    text-decoration: none; cursor: pointer;
+  }
+  #cta a:hover { background: #27402f; }
+  #cta a.primary { background: #68bc71; border-color: #68bc71; color: #06130b; }
+  #cta a.primary:hover { background: #7fd18a; }
+
+  footer {
+    text-align: center; opacity: .4; padding: 18px; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <img src="assets/icon.png" alt="Иконка AdGuard: Блокировщик рекламы">
+  <div>
+    <h1>AdGuard: Блокировщик рекламы</h1>
+    <div class="sub">превью зацикленной анимации · loop.mp4 · 1920×824 · 18.5 s</div>
+  </div>
+</header>
+
+<div id="stage">
+  <video id="video" src="assets/loop.mp4" autoplay muted loop playsinline></video>
+</div>
+
+<div id="bar">
+  <button id="toggle" title="Пауза / воспроизведение">❚❚ пауза</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Позиция в видео">
+  <span id="time">0.0 / 18.5</span>
+  <span class="hint">клик по видео — пауза</span>
+</div>
+
+<section>
+  <h2>Скриншоты из App Store</h2>
+  <div id="shots">
+    <figure><img src="assets/shot1.png" alt="Скриншот 1" loading="lazy"><figcaption>01</figcaption></figure>
+    <figure><img src="assets/shot2.png" alt="Скриншот 2" loading="lazy"><figcaption>02</figcaption></figure>
+    <figure><img src="assets/shot3.png" alt="Скриншот 3" loading="lazy"><figcaption>03</figcaption></figure>
+    <figure><img src="assets/shot4.png" alt="Скриншот 4" loading="lazy"><figcaption>04</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Скачать</h2>
+  <div id="cta">
+    <a class="primary" href="https://apps.apple.com/ru/app/id1047223162">App Store</a>
+    <a href="https://adguard.com">adguard.com</a>
+  </div>
+</section>
+
+<footer>AdGuard AdBlocker · превью-страница анимации</footer>
+
+<script>
+  const video = document.getElementById('video');
+  const toggle = document.getElementById('toggle');
+  const scrub = document.getElementById('scrub');
+  const time = document.getElementById('time');
+  let scrubbing = false;
+
+  const fmt = s => isFinite(s) ? s.toFixed(1) : '0.0';
+
+  function setPlayingUI() {
+    toggle.textContent = video.paused ? '▶ играть' : '❚❚ пауза';
+  }
+
+  toggle.addEventListener('click', () => {
+    video.paused ? video.play() : video.pause();
+  });
+
+  video.addEventListener('click', () => {
+    video.paused ? video.play() : video.pause();
+  });
+
+  video.addEventListener('play', setPlayingUI);
+  video.addEventListener('pause', setPlayingUI);
+
+  video.addEventListener('loadedmetadata', () => {
+    time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+  });
+
+  video.addEventListener('timeupdate', () => {
+    if (!scrubbing && video.duration) {
+      scrub.value = Math.round(video.currentTime / video.duration * 1000);
+    }
+    time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+  });
+
+  scrub.addEventListener('input', () => {
+    scrubbing = true;
+    if (video.duration) {
+      video.currentTime = scrub.value / 1000 * video.duration;
+    }
+  });
+  scrub.addEventListener('change', () => { scrubbing = false; });
+
+  setPlayingUI();
+</script>
+
+</body>
+</html>
