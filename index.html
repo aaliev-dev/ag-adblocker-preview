@@ -76,6 +76,19 @@
   .side .kv{font-size:12.5px;color:var(--dim)}
   .side .kv b{display:block;color:var(--txt);font-weight:600;font-size:13.5px}
 
+  /* ==== placements ==== */
+  .places{max-width:1060px;margin:0 auto 30px;padding:0 20px}
+  .places h2{font-size:20px;margin:40px 0 4px;font-weight:700}
+  .places .sub{color:var(--dim);font-size:13.5px;margin:0 0 18px}
+  .pgrid{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;flex:1 1 300px;max-width:460px}
+  .pcard h3{margin:0 0 2px;font-size:15px}
+  .pcard .spec{color:var(--dim);font-size:12px;margin-bottom:12px}
+  .pcard .spec b{color:#7ee2a0;font-weight:600}
+  .pcard video{display:block;width:100%;border-radius:12px;background:#000}
+  .refcap{color:var(--dim);font-size:11.5px;margin:10px 0 6px;font-weight:600;letter-spacing:.2px}
+  .pcard .todo{color:#e8c268;font-size:12.5px;margin-bottom:0}
+
   /* ==== player card ==== */
   .player{display:flex;gap:10px;align-items:center}
   .player button{background:#1d2b24;color:#d7ecd9;border:1px solid #2e4438;border-radius:8px;
@@ -190,7 +203,54 @@
 
 </div>
 
+<div class="places">
+  <h2>Один блок — несколько размещений</h2>
+  <p class="sub">Creative assets в App Store: у каждого размещения своя пропорция. Сверху — наш ролик в нужном кропе (когда отрендерен), снизу — референс Apple, как блок выглядит в живом App Store.</p>
+  <div class="pgrid">
+
+    <div class="pcard">
+      <h3>Product page header</h3>
+      <div class="spec">21:9 · <b>1920 × 824</b> · 5–30 с ✓ · звук можно включить</div>
+      <video class="lazy" data-src="assets/loop.mp4" muted loop playsinline style="aspect-ratio:1920/824"></video>
+      <div class="refcap">Референс Apple — размещение в App Store:</div>
+      <video class="lazy" data-src="assets/apple-ref-product-page-header-web.mp4" poster="assets/poster-ref-product-page-header.jpg" muted loop playsinline style="aspect-ratio:1920/824"></video>
+      <p style="margin-bottom:0">Наша версия отрендерена — играет в айфоне выше и здесь.</p>
+    </div>
+
+    <div class="pcard">
+      <h3>Search results</h3>
+      <div class="spec">3:2 · <b>1920 × 1280 … 3840 × 2560</b> · звук всегда выключен</div>
+      <div class="refcap">Референс Apple — размещение в поиске:</div>
+      <video class="lazy" data-src="assets/apple-ref-search-results-web.mp4" poster="assets/poster-ref-search-results.jpg" muted loop playsinline style="aspect-ratio:3/2"></video>
+      <p class="todo">⚠ Нашей версии пока нет: луп собран в 21:9, для 3:2 нужен отдельный кроп/рендер (стена и топор должны остаться в кадре).</p>
+    </div>
+
+    <div class="pcard">
+      <h3>In-App Event card</h3>
+      <div class="spec">16:9 · <b>1920 × 1080 … 3840 × 2160</b> · 15–30 с ✓</div>
+      <div class="refcap">Референс Apple — карточка события:</div>
+      <video class="lazy" data-src="assets/apple-ref-in-app-events-web.mp4" poster="assets/poster-ref-in-app-events.jpg" muted loop playsinline style="aspect-ratio:16/9"></video>
+      <p class="todo">⚠ Нашей версии пока нет: для 16:9 нужен отдельный рендер — 18.5 с в лимит, если луп уложить в 15–30 с.</p>
+    </div>
+
+  </div>
+  <p class="sub" style="margin-top:14px">⚠ Четвёртое размещение — In-App Event details page (9:16, вертикаль) — требует отдельной вертикальной версии: анимация горизонтальная, слепой кроп не сработает.</p>
+</div>
+
 <div class="foot">AdGuard: Блокировщик рекламы · product page header · анимация из Keyshape · превью собрано для ревью</div>
+
+<script>
+  const io = new IntersectionObserver((es) => {
+    es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const v = e.target;
+      v.src = v.dataset.src;
+      v.play().catch(() => {});
+      io.unobserve(v);
+    });
+  }, { rootMargin: "300px" });
+  document.querySelectorAll("video.lazy").forEach((v) => io.observe(v));
+</script>
 
 <script>
   const video = document.getElementById('v');
