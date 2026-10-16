@@ -3,157 +3,220 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AdGuard: Блокировщик рекламы — превью анимации</title>
-<meta name="description" content="Превью зацикленной анимации AdGuard AdBlocker: видео, скриншоты и ссылки.">
+<title>Product Page Header — AdGuard: Блокировщик рекламы</title>
 <style>
-  html, body { margin: 0; background: #000; }
-  body {
-    min-height: 100vh; display: flex; flex-direction: column;
-    color: #d7ecd9; font: 13px/1.5 ui-monospace, Menlo, monospace;
+  :root{
+    --bg:#0b0e14; --panel:#12161f; --line:#232a36; --txt:#e8ecf2; --dim:#8b94a3;
+    --blue:#0a84ff; --green:#30d158;
   }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 700px at 50% -10%, #17202e 0%, var(--bg) 55%) fixed, var(--bg);
+    color:var(--txt); font:14px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .top{max-width:1060px;margin:0 auto;padding:26px 20px 6px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .ttl{font-size:17px;font-weight:700;letter-spacing:.2px}
+  .chips{display:flex;gap:7px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:var(--panel);color:var(--dim);border-radius:99px;padding:4px 11px;font-size:12px;font-weight:600;white-space:nowrap}
+  .chip.ok{color:#7ee2a0;border-color:#1f4633}
+  .wrap{max-width:1060px;margin:18px auto 60px;padding:0 20px;display:flex;gap:44px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
 
-  /* === header === */
-  #top {
-    display: flex; align-items: center; gap: 14px; padding: 12px 18px;
-    background: #101315; border-bottom: 1px solid #1c2a24;
-  }
-  #top img { width: 40px; height: 40px; border-radius: 9px; display: block; }
-  #top h1 { font: 600 15px/1.2 ui-monospace, Menlo, monospace; margin: 0; }
-  #top .sub { opacity: .55; font-size: 12px; }
+  /* ==== iPhone ==== */
+  .phone{width:398px;border-radius:58px;background:#15181d;border:11px solid #262b33;
+    box-shadow:0 40px 90px rgba(0,0,0,.55), inset 0 0 3px rgba(255,255,255,.14);position:relative;flex:0 0 auto}
+  .island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:112px;height:32px;border-radius:20px;background:#000;z-index:30}
+  .screen{height:800px;border-radius:47px;overflow-y:auto;overflow-x:hidden;background:#f2f2f7;color:#000;scrollbar-width:none}
+  .screen::-webkit-scrollbar{display:none}
 
-  /* === stage === */
-  #stage { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; padding: 14px; }
-  #video {
-    max-width: 100%; max-height: calc(100vh - 200px); width: auto; height: auto;
-    display: block; border-radius: 6px; background: #000; cursor: pointer;
-  }
+  .vhead{position:relative;background:#000}
+  .vhead video{display:block;width:100%;aspect-ratio:1920/824;object-fit:cover}
+  .sbar{position:absolute;top:0;left:0;right:0;height:44px;display:flex;justify-content:space-between;align-items:center;
+    padding:0 24px 0 30px;color:#fff;font-weight:600;font-size:13px;z-index:5;pointer-events:none}
+  .sbar .batt{display:flex;align-items:center;gap:5px;opacity:.95}
+  .batt .body{width:22px;height:11px;border:1.5px solid #fff;border-radius:3px;position:relative;opacity:.9}
+  .batt .body::after{content:"";position:absolute;inset:1.5px;right:4px;background:#fff;border-radius:1px}
+  .batt .cap{width:1.5px;height:4px;background:#fff;border-radius:0 1px 1px 0;opacity:.9}
 
-  /* === control bar === */
-  #bar {
-    display: flex; gap: 14px; align-items: center; padding: 0 18px; height: 64px;
-    background: #101315; border-top: 1px solid #1c2a24;
-  }
-  button {
-    background: #1d2b24; color: #d7ecd9; border: 1px solid #2e4438; border-radius: 8px;
-    padding: 8px 16px; font: 600 13px ui-monospace, Menlo, monospace; cursor: pointer;
-  }
-  button:hover { background: #27402f; }
-  #time { min-width: 110px; text-align: right; opacity: .8; }
-  input[type=range] { flex: 1; accent-color: #68bc71; }
-  .hint { opacity: .45; }
+  .navbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 6px;color:var(--blue);font-size:15px;font-weight:500}
+  .navbar b{color:#000;font-weight:600;font-size:17px}
+  .app{display:flex;gap:14px;align-items:center;padding:6px 16px 14px}
+  .icon{width:78px;height:78px;border-radius:18px;flex:0 0 auto;box-shadow:0 6px 16px rgba(0,110,60,.25);overflow:hidden}
+  .app .meta{flex:1;min-width:0}
+  .app h1{font-size:18px;margin:0;font-weight:600;line-height:1.15}
+  .app p{margin:2px 0 0;font-size:12.5px;color:#6b7080}
+  .get{background:#eef0f4;color:var(--blue);font-weight:700;font-size:14px;border-radius:99px;padding:7px 22px;letter-spacing:.4px;flex:0 0 auto}
+  .stats{display:flex;justify-content:space-around;padding:12px 8px 14px;border-top:.5px solid #e2e2e7;border-bottom:.5px solid #e2e2e7;margin:0 16px}
+  .stat{text-align:center;font-size:11px;color:#8a8f9c;flex:1}
+  .stat b{display:block;font-size:17px;color:#6b7080;font-weight:600}
+  .stat b i{font-style:normal;font-size:12px;color:#f5a623}
+  .sec{padding:18px 16px 8px;font-size:20px;font-weight:700}
+  .shots{display:flex;gap:10px;overflow-x:auto;padding:2px 16px 6px;scrollbar-width:none}
+  .shots::-webkit-scrollbar{display:none}
+  .shots img{height:340px;border-radius:16px;border:.5px solid #d8d8de;flex:0 0 auto}
+  .about{padding:0 16px;font-size:13.5px;color:#333}
+  .about p{margin:0 0 10px}
+  .tabbar{position:sticky;bottom:0;background:rgba(249,249,251,.92);backdrop-filter:blur(10px);
+    border-top:.5px solid #dcdce1;display:flex;padding:7px 4px 14px;justify-content:space-around}
+  .tab{font-size:10px;color:#9a9aa2;text-align:center;flex:1}
+  .tab.on{color:var(--blue)}
+  .tab .ic{display:block;width:22px;height:22px;margin:0 auto 3px;border:1.8px solid currentColor;border-radius:7px;opacity:.9}
+  .tab .ic.f{border-radius:50%}
 
-  /* === sections below the fold === */
-  section { padding: 34px 18px; }
-  section h2 {
-    font: 600 13px/1 ui-monospace, Menlo, monospace; text-transform: uppercase;
-    letter-spacing: .12em; color: #68bc71; margin: 0 0 18px;
-  }
-  #shots {
-    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
-  }
-  #shots figure { margin: 0; }
-  #shots img {
-    height: 380px; width: auto; display: block; border-radius: 14px;
-    border: 1px solid #1c2a24;
-  }
-  #shots figcaption { text-align: center; opacity: .5; font-size: 11px; margin-top: 8px; }
+  /* ==== side panel ==== */
+  .side{flex:1 1 320px;max-width:430px;min-width:290px}
+  .side h2{font-size:15px;margin:0 0 8px;font-weight:700;color:#cfd7e3}
+  .side .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+  .side p{margin:0 0 10px;color:#aab3c2;font-size:13.5px}
+  .side a{color:#7db4ff;text-decoration:none;font-weight:600}
+  .side a.btn{display:inline-block;background:#1f4633;border:1px solid #2e5c46;color:#7ee2a0;border-radius:10px;padding:9px 16px;font-weight:700;font-size:13px;margin:0 8px 8px 0}
+  .side a.btn:hover{background:#27563f}
+  .side .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-top:10px}
+  .side .kv{font-size:12.5px;color:var(--dim)}
+  .side .kv b{display:block;color:var(--txt);font-weight:600;font-size:13.5px}
 
-  #cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-  #cta a {
-    background: #1d2b24; color: #d7ecd9; border: 1px solid #2e4438; border-radius: 8px;
-    padding: 12px 22px; font: 600 13px ui-monospace, Menlo, monospace;
-    text-decoration: none; cursor: pointer;
-  }
-  #cta a:hover { background: #27402f; }
-  #cta a.primary { background: #68bc71; border-color: #68bc71; color: #06130b; }
-  #cta a.primary:hover { background: #7fd18a; }
-
-  footer {
-    text-align: center; opacity: .4; padding: 18px; font-size: 11px;
-  }
+  /* ==== player card ==== */
+  .player{display:flex;gap:10px;align-items:center}
+  .player button{background:#1d2b24;color:#d7ecd9;border:1px solid #2e4438;border-radius:8px;
+    padding:8px 14px;font:600 13px -apple-system, BlinkMacSystemFont, sans-serif;cursor:pointer;white-space:nowrap}
+  .player button:hover{background:#27402f}
+  .player input[type=range]{flex:1;accent-color:var(--green)}
+  .player .time{font-size:12px;color:var(--dim);min-width:86px;text-align:right}
+  .foot{max-width:1060px;margin:0 auto 50px;padding:0 20px;color:#5c6472;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
 
-<header id="top">
-  <img src="assets/icon.png" alt="Иконка AdGuard: Блокировщик рекламы">
-  <div>
-    <h1>AdGuard: Блокировщик рекламы</h1>
-    <div class="sub">превью зацикленной анимации · loop.mp4 · 1920×824 · 18.5 s</div>
+<div class="top">
+  <div class="ttl">Product page header · AdGuard: Блокировщик рекламы</div>
+  <div class="chips">
+    <span class="chip ok">1920 × 824</span>
+    <span class="chip ok">21:9</span>
+    <span class="chip ok">18.5 с</span>
+    <span class="chip ok">H.264 · .mp4</span>
+    <span class="chip ok">луп</span>
   </div>
-</header>
-
-<div id="stage">
-  <video id="video" src="assets/loop.mp4" autoplay muted loop playsinline></video>
 </div>
 
-<div id="bar">
-  <button id="toggle" title="Пауза / воспроизведение">❚❚ пауза</button>
-  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Позиция в видео">
-  <span id="time">0.0 / 18.5</span>
-  <span class="hint">клик по видео — пауза</span>
+<div class="wrap">
+
+  <div class="phone">
+    <div class="island"></div>
+    <div class="screen">
+      <div class="vhead">
+        <div class="sbar"><span>9:41</span><span class="batt"><svg width="16" height="11" viewBox="0 0 16 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/></svg><span class="body"></span><span class="cap"></span></span></div>
+        <video id="v" src="assets/loop.mp4" autoplay muted loop playsinline></video>
+      </div>
+
+      <div class="navbar"><span>‹ Apps</span><b>Product Page</b><span style="opacity:.35">⋯</span></div>
+
+      <div class="app">
+        <div class="icon"><img src="assets/icon.png" alt="AdGuard: Блокировщик рекламы — иконка" style="width:100%;height:100%;display:block"></div>
+        <div class="meta">
+          <h1>AdGuard: Блокировщик рекламы</h1>
+          <p>Блокируйте рекламу в Safari, даже на YouTube</p>
+        </div>
+        <div class="get">GET</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>4.4 <i>★</i></b>13.3K Ratings</div>
+        <div class="stat"><b>4+</b>Age</div>
+        <div class="stat"><b>Утилиты</b>Genre</div>
+        <div class="stat"><b>4.5.23</b>Version</div>
+      </div>
+
+      <div class="sec">Preview</div>
+      <div class="shots">
+        <img src="assets/shot1.png" alt="AdGuard — скриншот App Store 1">
+        <img src="assets/shot2.png" alt="AdGuard — скриншот App Store 2">
+        <img src="assets/shot3.png" alt="AdGuard — скриншот App Store 3">
+        <img src="assets/shot4.png" alt="AdGuard — скриншот App Store 4">
+      </div>
+
+      <div class="sec">About</div>
+      <div class="about">
+        <p>Блокируйте рекламу в Safari, даже на YouTube. Избавьтесь от трекеров и защитите свою приватность с помощью DNS-фильтрации. Бесплатно и проверено миллионами пользователей.</p>
+        <p>Хедер product page — анимация: рекламные карточки блокируются, остаётся чистая страница и фирменный зелёный щит AdGuard.</p>
+      </div>
+
+      <div class="tabbar">
+        <div class="tab"><span class="ic f"></span>Today</div>
+        <div class="tab"><span class="ic"></span>Games</div>
+        <div class="tab on"><span class="ic"></span>Apps</div>
+        <div class="tab"><span class="ic f"></span>Arcade</div>
+        <div class="tab"><span class="ic f"></span>Search</div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="side">
+    <div class="card">
+      <h2>Что это</h2>
+      <p>Превью анимации для product page header в App Store — <b>AdGuard: Блокировщик рекламы</b> (iOS). Слева — как хедер выглядит на странице приложения: видео-луп сверху, ниже скриншоты и описание из App Store (данные — iTunes API, RU).</p>
+      <div class="grid">
+        <div class="kv">Разрешение<b>1920 × 824 (21:9)</b></div>
+        <div class="kv">Длительность<b>18.5 с · луп</b></div>
+        <div class="kv">Формат<b>.mp4 · H.264</b></div>
+        <div class="kv">Звук<b>нет — muted ✓</b></div>
+        <div class="kv">Рейтинг<b>4.4 ★ · 13 287 оценок</b></div>
+        <div class="kv">Жанры<b>Утилиты · Производительность</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Файлы</h2>
+      <p><a href="assets/loop.mp4" download>Скачать видео (loop.mp4 · 1920×824 · 2.8 МБ)</a></p>
+      <p style="margin-bottom:0">На странице играет та же копия — грузится быстро, autoplay muted loop.</p>
+    </div>
+
+    <div class="card">
+      <h2>Плеер</h2>
+      <div class="player">
+        <button id="toggle">❚❚ пауза</button>
+        <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Позиция в видео">
+        <span class="time" id="time">0.0 / 18.5</span>
+      </div>
+      <p style="margin:10px 0 0;font-size:12px">Клик по видео в айфоне — тоже пауза.</p>
+    </div>
+
+    <div class="card">
+      <h2>Ссылки</h2>
+      <a class="btn" href="https://apps.apple.com/ru/app/id1047223162">App Store</a>
+      <a class="btn" href="https://adguard.com">adguard.com</a>
+    </div>
+  </aside>
+
 </div>
 
-<section>
-  <h2>Скриншоты из App Store</h2>
-  <div id="shots">
-    <figure><img src="assets/shot1.png" alt="Скриншот 1" loading="lazy"><figcaption>01</figcaption></figure>
-    <figure><img src="assets/shot2.png" alt="Скриншот 2" loading="lazy"><figcaption>02</figcaption></figure>
-    <figure><img src="assets/shot3.png" alt="Скриншот 3" loading="lazy"><figcaption>03</figcaption></figure>
-    <figure><img src="assets/shot4.png" alt="Скриншот 4" loading="lazy"><figcaption>04</figcaption></figure>
-  </div>
-</section>
-
-<section>
-  <h2>Скачать</h2>
-  <div id="cta">
-    <a class="primary" href="https://apps.apple.com/ru/app/id1047223162">App Store</a>
-    <a href="https://adguard.com">adguard.com</a>
-  </div>
-</section>
-
-<footer>AdGuard AdBlocker · превью-страница анимации</footer>
+<div class="foot">AdGuard: Блокировщик рекламы · product page header · анимация из Keyshape · превью собрано для ревью</div>
 
 <script>
-  const video = document.getElementById('video');
+  const video = document.getElementById('v');
   const toggle = document.getElementById('toggle');
   const scrub = document.getElementById('scrub');
   const time = document.getElementById('time');
   let scrubbing = false;
 
   const fmt = s => isFinite(s) ? s.toFixed(1) : '0.0';
+  const setPlayingUI = () => { toggle.textContent = video.paused ? '▶ играть' : '❚❚ пауза'; };
 
-  function setPlayingUI() {
-    toggle.textContent = video.paused ? '▶ играть' : '❚❚ пауза';
-  }
-
-  toggle.addEventListener('click', () => {
-    video.paused ? video.play() : video.pause();
-  });
-
-  video.addEventListener('click', () => {
-    video.paused ? video.play() : video.pause();
-  });
-
+  toggle.addEventListener('click', () => video.paused ? video.play() : video.pause());
+  video.addEventListener('click', () => video.paused ? video.play() : video.pause());
   video.addEventListener('play', setPlayingUI);
   video.addEventListener('pause', setPlayingUI);
 
   video.addEventListener('loadedmetadata', () => {
     time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
   });
-
   video.addEventListener('timeupdate', () => {
-    if (!scrubbing && video.duration) {
-      scrub.value = Math.round(video.currentTime / video.duration * 1000);
-    }
+    if (!scrubbing && video.duration) scrub.value = Math.round(video.currentTime / video.duration * 1000);
     time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
   });
-
   scrub.addEventListener('input', () => {
     scrubbing = true;
-    if (video.duration) {
-      video.currentTime = scrub.value / 1000 * video.duration;
-    }
+    if (video.duration) video.currentTime = scrub.value / 1000 * video.duration;
   });
   scrub.addEventListener('change', () => { scrubbing = false; });
 
